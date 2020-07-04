@@ -5,6 +5,7 @@ const ejs = require('ejs')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
+const expressSession = require('express-session')
 
 const newPostController = require('./controllers/newPost')
 const homeController = require('./controllers/home')
@@ -18,6 +19,10 @@ const loginUserController = require('./controllers/loginUser')
 const validateMiddleware = require("./middleware/validateMiddleware");
 
 app.use(fileUpload())
+
+app.use(expressSession({
+    secret: 'a secret'
+}))
 
 mongoose.connect('mongodb+srv://wsherridge1980:JVKoL4MrP10tUbZS@blog.vkfvb.mongodb.net/blog', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useCreateIndex', true)
