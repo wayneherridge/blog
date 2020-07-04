@@ -1,8 +1,9 @@
 const BlogPost = require('../models/BlogPost.js')
 
 module.exports = async (req, res) => {
+    let blogposts
     try {
-        const blogposts = await BlogPost.find({})
+        blogposts = await BlogPost.find({})
     } catch (err) {
         console.log(err.message)
     }
