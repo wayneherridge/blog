@@ -1,12 +1,7 @@
 const BlogPost = require('../models/BlogPost.js')
 
 module.exports = async (req, res) => {
-    let blogposts
-    try {
-        blogposts = await BlogPost.find({})
-    } catch (err) {
-        console.log(err.message)
-    }
+    const blogposts = await BlogPost.find({})
     res.render('index', {
         blogposts
     });
