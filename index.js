@@ -17,7 +17,7 @@ const validateMiddleware = require("./middleware/validateMiddleware");
 
 app.use(fileUpload())
 
-mongoose.connect('mongodb://localhost/blog', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://wsherridge1980:JVKoL4MrP10tUbZS@Blog.mongodb.net/blog', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useCreateIndex', true)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
