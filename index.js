@@ -17,8 +17,11 @@ const validateMiddleware = require("./middleware/validateMiddleware");
 
 app.use(fileUpload())
 
-mongoose.connect('mongodb+srv://wsherridge1980:JVKoL4MrP10tUbZS@blog.vkfvb.mongodb.net/blog', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.set('useCreateIndex', true)
+app.get('/', function (req, res, next) {
+    req.db
+})
+//mongoose.connect('mongodb+srv://wsherridge1980:JVKoL4MrP10tUbZS@blog.vkfvb.mongodb.net/blog', { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.set('useCreateIndex', true)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -34,10 +37,6 @@ if (port == null || port == "") {
 app.listen(port, () => {
     console.log("App listening...")
 })
-
-// app.listen(5000, () => {
-//     console.log('App listening on port 5000 ...')
-// })
 
 app.use('/posts/store', validateMiddleware)
 
