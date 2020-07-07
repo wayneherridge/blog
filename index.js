@@ -24,7 +24,7 @@ app.use(expressSession({
     secret: 'a secret'
 }))
 
-mongoose.connect('mongodb+srv://wsherridge1980:JVKoL4MrP10tUbZS@blog.vkfvb.mongodb.net/blog', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useCreateIndex', true)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
