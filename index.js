@@ -52,7 +52,6 @@ app.use("*", (req, res, next) => {
     next()
 })
 
-app.use('/posts/store', validateMiddleware)
 app.get('/posts/new', authMiddleware, newPostController)
 app.get('/', homeController)
 app.get('/post/:id', getPostController)
@@ -61,3 +60,5 @@ app.get('/auth/register', redirectIfAuthenticatedMiddleware, newUserController)
 app.post('/users/register', redirectIfAuthenticatedMiddleware, storeUserController)
 app.get('/auth/login', redirectIfAuthenticatedMiddleware, loginController)
 app.post('/users/login', redirectIfAuthenticatedMiddleware, loginUserController)
+app.get('/auth/logout', logoutController)
+app.use((req, res) => res.render('notfound'))
