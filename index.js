@@ -45,10 +45,10 @@ app.listen(port, () => {
     console.log("App listening...")
 })
 
-global.loggedIn = null
+global.loggedIn = null;
 
 app.use("*", (req, res, next) => {
-    loggedIn = req.session.userId
+    loggedIn = req.session.userId;
     next()
 })
 
