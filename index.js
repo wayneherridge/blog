@@ -17,7 +17,9 @@ const storeUserController = require('./controllers/storeUser')
 const loginController = require('./controllers/login')
 const loginUserController = require('./controllers/loginUser')
 
-const validateMiddleware = require("./middleware/validateMiddleware");
+const validateMiddleware = require('./middleware/validateMiddleware')
+const authMiddleware = require('./middleware/authMiddleware')
+const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
 
 app.use(fileUpload())
 
@@ -25,7 +27,7 @@ app.use(expressSession({
     secret: 'a secret'
 }))
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.set('useCreateIndex', true)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -43,13 +45,19 @@ app.listen(port, () => {
     console.log("App listening...")
 })
 
-app.use('/posts/store', validateMiddleware)
+global.loggedIn = null
 
-app.get('/posts/new', newPostController)
+app.use("*", (req, res, next) => {
+    loggedIn = req.session.userId
+    next()
+})
+
+app.use('/posts/store', validateMiddleware)
+app.get('/posts/new', authMiddleware, newPostController)
 app.get('/', homeController)
 app.get('/post/:id', getPostController)
-app.post('/posts/store', storePostController)
-app.get('/auth/register', newUserController)
-app.post('/users/register', storeUserController)
-app.get('/auth/login', loginController)
-app.post('/users/login', loginUserController)
+app.post('/posts/store', authMiddleware, storePostController)
+app.get('/auth/register', redirectIfAuthenticatedMiddleware, newUserController)
+app.post('/users/register', redirectIfAuthenticatedMiddleware, storeUserController)
+app.get('/auth/login', redirectIfAuthenticatedMiddleware, loginController)
+app.post('/users/login', redirectIfAuthenticatedMiddleware, loginUserController)
