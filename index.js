@@ -16,6 +16,7 @@ const newUserController = require('./controllers/newUser')
 const storeUserController = require('./controllers/storeUser')
 const loginController = require('./controllers/login')
 const loginUserController = require('./controllers/loginUser')
+const logoutController = require('./controllers/logout')
 
 const validateMiddleware = require('./middleware/validateMiddleware')
 const authMiddleware = require('./middleware/authMiddleware')
