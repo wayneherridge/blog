@@ -1,13 +1,8 @@
-const express = require('express')
-require('dotenv').config()
-
 const app = new express()
 const ejs = require('ejs')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
-const expressSession = require('express-session')
-const flash = require('connect-flash')
 
 const newPostController = require('./controllers/newPost')
 const homeController = require('./controllers/home')
@@ -17,14 +12,15 @@ const newUserController = require('./controllers/newUser')
 const storeUserController = require('./controllers/storeUser')
 const loginController = require('./controllers/login')
 const loginUserController = require('./controllers/loginUser')
+const expressSession = require('express-session');
 const logoutController = require('./controllers/logout')
 
-const validateMiddleware = require('./middleware/validateMiddleware')
-const authMiddleware = require('./middleware/authMiddleware')
+const validateMiddleware = require("./middleware/validateMiddleware");
+const authMiddleware = require('./middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
+const flash = require('connect-flash');
 
 app.use(fileUpload())
-app.use(flash())
 
 app.use(expressSession({
     secret: 'a secret'
@@ -54,6 +50,8 @@ app.use("*", (req, res, next) => {
     loggedIn = req.session.userId;
     next()
 })
+
+app.use(flash())
 
 app.get('/posts/new', authMiddleware, newPostController)
 app.get('/', homeController)
