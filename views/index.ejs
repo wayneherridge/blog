@@ -14,8 +14,6 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
             <h1>Scripture Study Blog</h1>
-            <span class="subheading">"The study of the doctrines of the gospel will improve behavior quicker than a
-              study of behavior will improve behavior." - Boyd K. Packer</span>
           </div>
         </div>
       </div>
@@ -32,6 +30,9 @@
             <h2 class="post-title">
               <%= blogposts[i].title %>
             </h2>
+            <h3 class="post-subtitle">
+              <%= blogposts[i].body %>
+            </h3>
           </a>
           <p class="post-meta">Posted by
             <a href="#"><%= blogposts[i].userid.username %></a>
