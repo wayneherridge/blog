@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
 const expressSession = require('express-session')
+const flash = require('connect-flash')
 
 const newPostController = require('./controllers/newPost')
 const homeController = require('./controllers/home')
@@ -23,6 +24,7 @@ const authMiddleware = require('./middleware/authMiddleware')
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
 
 app.use(fileUpload())
+app.use(flash())
 
 app.use(expressSession({
     secret: 'a secret'
